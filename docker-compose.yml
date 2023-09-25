@@ -1,0 +1,8 @@
+version: "3"
+services:
+  web-map:
+    build: web-map
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./web-map:/usr/web-map
