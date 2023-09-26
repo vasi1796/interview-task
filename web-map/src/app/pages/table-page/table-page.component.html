@@ -12,6 +12,7 @@
 </table>
 <mat-paginator
   #paginator
-  [pageSizeOptions]="[5,10]"
-  showFirstLastButtons></mat-paginator>
+  [pageSizeOptions]="[5]"
+  [pageIndex]="pageIndex"
+  (page)="changePage($event)"></mat-paginator>
 </div>

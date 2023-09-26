@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LandRegistryTitle } from 'src/app/models/LandRegistryTitle';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -14,7 +14,6 @@ import { ApiService } from 'src/app/services/api.service';
 export class TablePageComponent {
   @ViewChild(MatSort, { static: false }) sort!: MatSort
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator
-  @ViewChild(MatPaginator, { static: false }) paginatorPageSize!: MatPaginator
 
   dataSource = new MatTableDataSource<LandRegistryTitle>()
 
@@ -27,11 +26,16 @@ export class TablePageComponent {
     }
   ]
   displayProps = ['title_no','tenure']
+  pageIndex: number = 0
 
   constructor(
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ){
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.pageIndex = params['page']
+    })
     this.apiService.getTableData().subscribe(data => {
       this.dataSource = new MatTableDataSource(data)
       this.dataSource.sort = this.sort;
@@ -39,8 +43,12 @@ export class TablePageComponent {
     })
   }
 
-  openMapPage(row: any) {
+  openMapPage(row: LandRegistryTitle) {
     console.log(row)
     this.router.navigateByUrl('/map')
+  }
+
+  changePage(event: PageEvent) {
+    this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams: { page: event.pageIndex }});
   }
 }

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./map-page.component.scss']
 })
 export class MapPageComponent {
-  constructor(){}
+  constructor(private location: Location){}
+
+  routeBack() {
+    this.location.back()
+  }
 }
