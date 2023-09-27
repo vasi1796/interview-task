@@ -44,8 +44,7 @@ export class TablePageComponent {
   }
 
   openMapPage(row: LandRegistryTitle) {
-    console.log(row)
-    this.router.navigateByUrl('/map')
+    this.router.navigateByUrl(`/map?id=${row.title_no}`)
   }
 
   changePage(event: PageEvent) {

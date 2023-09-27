@@ -3,6 +3,6 @@ export class LandRegistryTitle {
     public title_no: string,
     public prop_address: string,
     public tenure: string,
-    public x: string,
-    public y: string) {}
+    public x: number,
+    public y: number) {}
 }
