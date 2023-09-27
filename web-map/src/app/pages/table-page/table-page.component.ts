@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LandRegistryTitle } from 'src/app/models/LandRegistryTitle';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'table-page',
@@ -31,7 +31,7 @@ export class TablePageComponent {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute
   ){
     this.activatedRoute.queryParams.subscribe(params => {
       this.pageIndex = params['page']

@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LandRegistryTitle } from 'src/app/models/LandRegistryTitle';
-import { ApiService } from 'src/app/services/api.service';
-import { MapService } from 'src/app/services/map.service';
+import { ApiService } from '../../services/api.service';
+import { MapService } from '../../services/map.service';
 
 @Component({
   selector: 'map-page',
