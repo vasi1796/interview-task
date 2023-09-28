@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { MapService } from '../../services/map.service';
 import { of } from 'rxjs';
+import { LayerService } from '../../services/layer.service';
 
 describe('MapPageComponent', () => {
   let component: MapPageComponent;
@@ -15,6 +16,7 @@ describe('MapPageComponent', () => {
   let mockApiService: Partial<ApiService>;
   let mockMapService: Partial<MapService>;
   let mockLocation: Partial<Location>;
+  let mockLayerService: Partial<LayerService>;
 
   beforeEach(async () => {
     mockApiService = {
@@ -23,9 +25,14 @@ describe('MapPageComponent', () => {
       ]))
     };
 
+    mockLayerService = {
+      addLayer: jest.fn()
+    };
+
     mockMapService = {
       setView: jest.fn(),
-      setTarget: jest.fn()
+      setTarget: jest.fn(),
+      addBaseLayer: jest.fn()
     };
 
     mockLocation = {
@@ -43,6 +50,7 @@ describe('MapPageComponent', () => {
       providers: [
         { provide: ApiService, useValue: mockApiService },
         { provide: MapService, useValue: mockMapService },
+        { provide: LayerService, useValue: mockLayerService},
         { provide: Location, useValue: mockLocation }
       ]
     })

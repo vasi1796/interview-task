@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LandRegistryTitle } from 'src/app/models/LandRegistryTitle';
 import { ApiService } from '../../services/api.service';
 import { MapService } from '../../services/map.service';
-import { LayerService } from 'src/app/services/layer.service';
+import { LayerService } from '../../services/layer.service';
 import BaseLayer from 'ol/layer/Base';
 
 @Component({
