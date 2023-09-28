@@ -9,6 +9,24 @@ import { ApiService } from '../../services/api.service';
 import { MapService } from '../../services/map.service';
 import { of } from 'rxjs';
 import { LayerService } from '../../services/layer.service';
+import { LandRegistryTitle } from 'src/app/models/LandRegistryTitle';
+
+const mockTableData: LandRegistryTitle[] = [
+  {
+    title_no: "123",
+    prop_address: "31-35 Kirby Street, London, EC1N 8TE",
+    tenure: "Freehold",
+    x: -0.107690402,
+    y: 51.52028757
+  },
+  {
+    title_no: "243751",
+    prop_address: "31-35 Kirby Street, London, EC1N 8TE",
+    tenure: "Freehold",
+    x: -0.107690402,
+    y: 51.52028757
+  }
+];
 
 describe('MapPageComponent', () => {
   let component: MapPageComponent;
@@ -20,9 +38,7 @@ describe('MapPageComponent', () => {
 
   beforeEach(async () => {
     mockApiService = {
-      getTableData: jest.fn().mockReturnValue(of([
-        // ... (include your mock data here or a smaller subset if desired)
-      ]))
+      getTableData: jest.fn().mockReturnValue(of(mockTableData))
     };
 
     mockLayerService = {
