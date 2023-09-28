@@ -3,10 +3,10 @@ import { Map, View } from 'ol';
 import * as olLayer from 'ol/layer'
 import { useGeographic } from 'ol/proj';
 import * as olSource from 'ol/source'
-import * as olProj from 'ol/proj'
 import Feature from 'ol/Feature'
 import * as olGeom from 'ol/geom'
 import * as olStyle from 'ol/style'
+import BaseLayer from 'ol/layer/Base';
 
 @Injectable({
   providedIn: 'root'
@@ -39,15 +39,18 @@ export class MapService {
     })
   }
 
-  setTarget (target: string | null) {
+  setTarget (target: string | null): void {
     this._map.setTarget('force a refresh')
     this._map.setTarget(target as any)
   }
 
-  setView (lon:number, lat:number) {
+  setView (lon:number, lat:number): void {
     this.map.getView().setCenter([lon, lat]);
     this.map.getView().setZoom(17);
-    var layer = new olLayer.Vector({
+  }
+
+  addLayer(lon:number, lat:number, name: string): BaseLayer {
+    let layer = new olLayer.Vector({
       source: new olSource.Vector({
           features: [
               new Feature({
@@ -60,11 +63,18 @@ export class MapService {
           anchor: [0.5, 46],
           anchorXUnits: 'fraction',
           anchorYUnits: 'pixels',
-          src: 'https://openlayers.org/en/latest/examples/data/icon.png'
+          src: 'https://icons.iconarchive.com/icons/iron-devil/ids-icon-plant/32/IDs-Icon-Plant-icon.png'
         })
       })
-  });
-  this.map.addLayer(layer);
+    });
+    layer.set('name', name)
+    this.map.addLayer(layer)
+    this.setView(lon, lat)
+    return layer
+  }
+
+  addBaseLayer(layer: BaseLayer): void {
+    this.map.addLayer(layer)
   }
 
 }

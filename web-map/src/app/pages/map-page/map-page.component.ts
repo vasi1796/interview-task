@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { LandRegistryTitle } from 'src/app/models/LandRegistryTitle';
 import { ApiService } from '../../services/api.service';
 import { MapService } from '../../services/map.service';
+import { LayerService } from 'src/app/services/layer.service';
+import BaseLayer from 'ol/layer/Base';
 
 @Component({
   selector: 'map-page',
@@ -13,12 +15,20 @@ import { MapService } from '../../services/map.service';
 export class MapPageComponent implements OnInit {
   titleId: string = ''
   landTitle: LandRegistryTitle | undefined = undefined
+  maxSlider: number = 1.0
+  minSlider: number = 0.0
+  sliderStepSize: number = 0.1
   @ViewChild('map', { static: true }) mapRef!: ElementRef
+
+  get availableLayers() {
+    return this.layerService.layers
+  }
 
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
+    private layerService: LayerService,
     private mapService: MapService
     ){
       this.activatedRoute.queryParams.subscribe(params => {
@@ -27,7 +37,7 @@ export class MapPageComponent implements OnInit {
           data.map(d => {
             if(d.title_no === this.titleId) {
               this.landTitle = d
-              this.mapService.setView(this.landTitle?.x, this.landTitle?.y)
+              this.layerService.addLayer(this.landTitle?.x, this.landTitle?.y, this.landTitle.title_no)
             }
           })
         })
@@ -38,7 +48,19 @@ export class MapPageComponent implements OnInit {
     this.mapService.setTarget('map')
   }
 
-  routeBack() {
+  toggleVisibility(layer: BaseLayer): void {
+    layer.setVisible(!layer.getVisible())
+  }
+
+  removeLayer(layer: BaseLayer): void {
+    this.layerService.removeLayer(layer)
+  }
+
+  setLayerOpacity(value: number, layer: BaseLayer): void {
+    layer.setOpacity(value)
+  }
+
+  routeBack(): void {
     this.location.back()
   }
 }

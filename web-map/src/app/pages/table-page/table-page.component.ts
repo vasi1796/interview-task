@@ -14,9 +14,7 @@ import { ApiService } from '../../services/api.service';
 export class TablePageComponent {
   @ViewChild(MatSort, { static: false }) sort!: MatSort
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator
-
   dataSource = new MatTableDataSource<LandRegistryTitle>()
-
   columnsToDisplay = [{
     tableTitle: 'Title number',
     prop: 'title_no'
@@ -43,11 +41,11 @@ export class TablePageComponent {
     })
   }
 
-  openMapPage(row: LandRegistryTitle) {
+  openMapPage(row: LandRegistryTitle): void {
     this.router.navigateByUrl(`/map?id=${row.title_no}`)
   }
 
-  changePage(event: PageEvent) {
+  changePage(event: PageEvent): void {
     this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams: { page: event.pageIndex }});
   }
 }

@@ -13,6 +13,8 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips'
+import { MatIconModule } from '@angular/material/icon'
+import { MatSliderModule } from '@angular/material/slider'
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { MatChipsModule } from '@angular/material/chips'
     MatPaginatorModule,
     MatCardModule,
     MatButtonModule,
-    MatChipsModule
+    MatChipsModule,
+    MatIconModule,
+    MatSliderModule
   ],
   providers: [
   ],

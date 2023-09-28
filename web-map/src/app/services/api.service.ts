@@ -12,7 +12,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getTableData (): Observable<LandRegistryTitle[]> {
+  getTableData() : Observable<LandRegistryTitle[]> {
     const tableData = this.http.get<LandRegistryTitle[]>(`${this.baseUrl}/titledata/testdata.json`)
     .pipe(
       map((titles: any[]) => {
