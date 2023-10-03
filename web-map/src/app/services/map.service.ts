@@ -7,6 +7,7 @@ import Feature from 'ol/Feature'
 import * as olGeom from 'ol/geom'
 import * as olStyle from 'ol/style'
 import BaseLayer from 'ol/layer/Base';
+import TileLayer from 'ol/layer/Tile';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,14 @@ export class MapService {
           source: new olSource.OSM({
             crossOrigin: 'anonymous'
           })
-        })
+        }),
+        new TileLayer({
+          source: new olSource.TileWMS({
+            url: 'http://localhost:8080/geoserver/wms',
+            params: {'LAYERS': 'web_test:london', 'TILED': true},
+            serverType: 'geoserver',
+          }),
+        }),
       ],
       view: new View({
         center: [0, 0],

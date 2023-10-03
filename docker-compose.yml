@@ -1,8 +1,22 @@
 version: "3"
 services:
+  geoserver:
+    image: docker.osgeo.org/geoserver:2.24.x
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./geoserver:/opt/geoserver_data
+    networks:
+      - mynet
   web-map:
     build: web-map
     ports:
       - "4200:4200"
     volumes:
       - ./web-map:/usr/web-map
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
